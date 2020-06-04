@@ -22,4 +22,4 @@ gsl = []
 no_gslcblas=[]
 
 [build-dependencies]
-bindgen = "0.43.*"
+bindgen = "0.51"
