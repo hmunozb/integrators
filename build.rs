@@ -15,17 +15,22 @@ fn main() {
     }
 
     if env::var("CARGO_FEATURE_GSL").is_ok() {
-        println!("cargo:rustc-link-lib=gsl");
-        let gsl = pkg_config::probe_library("gsl").unwrap();
-        let include_str = gsl.include_paths
+        //println!("cargo:rustc-link-lib=gsl");
+        let gsl = pkg_config::Config::new()
+            .arg("--define-variable=GSL_CBLAS_LIB=-lgsl")
+            .probe("gsl")
+            .unwrap();
+        let include_str : Vec<String>= gsl.include_paths
             .iter()
-            .fold(String::new(),
-                  |mut i, p| { i.push_str(&format!("-I{} ", p.to_owned().to_str().unwrap())); i } )
+            .map(|p| format!("-I{}", p.to_owned().to_str().unwrap()))
+            .collect()
+            //fold(String::new(),
+            //      |mut i, p| { i.push_str(&format!("-I{} ", p.to_owned().to_str().unwrap())); i } )
             ;
         if env::var("CARGO_FEATURE_NO_GSLCBLAS").is_err(){
             println!("cargo:rustc-link-lib=gslcblas");
         }
-        bindings = bindings.header("gsl_wrapper.h").clang_arg(include_str);
+        bindings = bindings.header("gsl_wrapper.h").clang_args(include_str.iter());
         any_bindings = true;
     }
 
