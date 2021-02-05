@@ -1,4 +1,4 @@
-use std::convert::Into;
+use std::convert::{Into, TryInto};
 use std::os::raw::c_int;
 
 use ::bindings;
@@ -113,7 +113,7 @@ impl Integrator for QAG {
             bindings::gsl_integration_qag(&mut gslfn.function,
                                           self.range_low, self.range_high,
                                           epsabs, epsrel,
-                                          self.wkspc.nintervals,
+                                          self.wkspc.nintervals.try_into().unwrap(),
                                           self.rule.into(),
                                           self.wkspc.wkspc,
                                           &mut value,

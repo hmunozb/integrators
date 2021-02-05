@@ -6,6 +6,7 @@ use ::ffi::LandingPad;
 use ::traits::{IntegrandInput, IntegrandOutput};
 
 use super::{make_gsl_function, GSLIntegrationError, GSLIntegrationWorkspace};
+use std::convert::TryInto;
 
 /// Quadrature Adaptive General integration with known singular Points.
 /// QAGP applies the same adaptive algorithm as QAGS, with the benefit of known
@@ -95,9 +96,9 @@ impl Integrator for QAGP {
             let mut gslfn = make_gsl_function(&mut lp, low, high)?;
             bindings::gsl_integration_qagp(&mut gslfn.function,
                                            singularities.as_mut_ptr(),
-                                           singularities.len(),
+                                           singularities.len().try_into().unwrap(),
                                            epsabs, epsrel,
-                                           self.wkspc.nintervals,
+                                           self.wkspc.nintervals.try_into().unwrap(),
                                            self.wkspc.wkspc,
                                            &mut value,
                                            &mut error)

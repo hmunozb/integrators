@@ -4,6 +4,7 @@ use ::ffi::LandingPad;
 use ::traits::{IntegrandInput, IntegrandOutput};
 
 use super::{make_gsl_function, GSLIntegrationError, GSLIntegrationWorkspace};
+use std::convert::TryInto;
 
 /// Quadrature Adaptive General integration with Singularities. Concentrates
 /// subintervals around integrable singularities which converge to the solution,
@@ -57,7 +58,7 @@ impl Integrator for QAGS {
             bindings::gsl_integration_qags(&mut gslfn.function,
                                            self.range_low, self.range_high,
                                            epsabs, epsrel,
-                                           self.wkspc.nintervals,
+                                           self.wkspc.nintervals.try_into().unwrap(),
                                            self.wkspc.wkspc,
                                            &mut value,
                                            &mut error)

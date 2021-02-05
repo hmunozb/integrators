@@ -1,4 +1,4 @@
-use std::convert::Into;
+use std::convert::{Into, TryInto};
 
 use ::bindings;
 use ::{IntegrationResult, Integrator, Real};
@@ -108,7 +108,7 @@ impl Integrator for QAGI {
             let mut gslfn = make_gsl_function(&mut lp, -1.0, 1.0)?;
             bindings::gsl_integration_qagi(&mut gslfn.function,
                                            epsabs, epsrel,
-                                           self.wkspc.nintervals,
+                                           self.wkspc.nintervals.try_into().unwrap(),
                                            self.wkspc.wkspc,
                                            &mut value,
                                            &mut error)
@@ -143,7 +143,7 @@ impl Integrator for QAGIU {
             bindings::gsl_integration_qagiu(&mut gslfn.function,
                                             self.lower_bound,
                                             epsabs, epsrel,
-                                            self.wkspc.nintervals,
+                                            self.wkspc.nintervals.try_into().unwrap(),
                                             self.wkspc.wkspc,
                                             &mut value,
                                             &mut error)
@@ -178,7 +178,7 @@ impl Integrator for QAGIL {
             bindings::gsl_integration_qagil(&mut gslfn.function,
                                             self.upper_bound,
                                             epsabs, epsrel,
-                                            self.wkspc.nintervals,
+                                            self.wkspc.nintervals.try_into().unwrap(),
                                             self.wkspc.wkspc,
                                             &mut value,
                                             &mut error)

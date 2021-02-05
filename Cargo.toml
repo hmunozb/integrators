@@ -22,5 +22,5 @@ gsl = []
 no_gslcblas=[]
 
 [build-dependencies]
-bindgen = "0.51"
+bindgen = "0.57"
 pkg-config = "0.3.18"

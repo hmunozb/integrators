@@ -34,7 +34,7 @@
 //! ```
 
 use std::{error, fmt, marker, mem};
-use std::convert::{From, Into};
+use std::convert::{From, Into, TryInto};
 use std::ffi::CStr;
 use std::os::raw::{c_void, c_int};
 
@@ -257,7 +257,7 @@ impl GSLIntegrationWorkspace {
         GSLIntegrationWorkspace {
             // TODO: Check for null-pointer
             wkspc: unsafe {
-                bindings::gsl_integration_workspace_alloc(n)
+                bindings::gsl_integration_workspace_alloc(n.try_into().unwrap())
             },
             nintervals: n
         }

@@ -4,6 +4,7 @@ use ::ffi::LandingPad;
 use ::traits::{IntegrandInput, IntegrandOutput};
 
 use super::{make_gsl_function, GSLIntegrationError, GSLIntegrationWorkspace};
+use std::convert::TryInto;
 
 /// Quadrature Adaptive Weighed integration for Cauchy principal values
 /// Calculates the principal value of a function f(x) with a singular weight
@@ -66,7 +67,7 @@ impl Integrator for QAWC {
                                            self.range_low, self.range_high,
                                            self.c,
                                            epsabs, epsrel,
-                                           self.wkspc.nintervals,
+                                           self.wkspc.nintervals.try_into().unwrap(),
                                            self.wkspc.wkspc,
                                            &mut value,
                                            &mut error)

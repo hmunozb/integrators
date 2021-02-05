@@ -39,7 +39,7 @@ impl Integrator for QNG {
     {
         let mut value: Real = 0.0;
         let mut error: Real = 0.0;
-        let mut neval: usize = 0;
+        let mut neval: u64 = 0;
 
         let mut lp = LandingPad::new(fun);
         let retcode = unsafe {
