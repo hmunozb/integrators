@@ -1,7 +1,7 @@
-use ::bindings;
-use ::ffi::LandingPad;
-use ::traits::{IntegrandInput, IntegrandOutput};
-use ::{IntegrationResult, Integrator, Real};
+use crate::bindings;
+use crate::ffi::LandingPad;
+use crate::traits::{IntegrandInput, IntegrandOutput};
+use crate::{IntegrationResult, Integrator, Real};
 use super::{make_gsl_function, GSLIntegrationError};
 
 /// Quadrature Non-adaptive General-use integrator. Iteratively
@@ -39,7 +39,7 @@ impl Integrator for QNG {
     {
         let mut value: Real = 0.0;
         let mut error: Real = 0.0;
-        let mut neval: u64 = 0;
+        let mut neval: usize = 0;
 
         let mut lp = LandingPad::new(fun);
         let retcode = unsafe {

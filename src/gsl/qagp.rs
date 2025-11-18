@@ -1,9 +1,9 @@
 use std::iter::IntoIterator;
 
-use ::bindings;
-use ::{IntegrationResult, Integrator, Real};
-use ::ffi::LandingPad;
-use ::traits::{IntegrandInput, IntegrandOutput};
+use crate::bindings;
+use crate::{IntegrationResult, Integrator, Real};
+use crate::ffi::LandingPad;
+use crate::traits::{IntegrandInput, IntegrandOutput};
 
 use super::{make_gsl_function, GSLIntegrationError, GSLIntegrationWorkspace};
 use std::convert::TryInto;

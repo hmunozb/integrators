@@ -26,12 +26,12 @@ pub trait Integrator {
 
 pub trait IntegrandInput {
     fn input_size() -> usize;
-    fn from_args(&[Real]) -> Self;
+    fn from_args(_: &[Real]) -> Self;
 }
 
 pub trait IntegrandOutput {
     fn output_size(&self) -> usize;
-    fn into_args(&self, &mut [Real]);
+    fn into_args(&self, _: &mut [Real]);
 }
 
 pub trait IntegrationResults {

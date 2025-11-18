@@ -11,16 +11,17 @@ keywords = ["ffi", "bindings", "math", "gsl", "cuba"]
 license = "GPL-3.0-or-later"
 
 build = "build.rs"
+edition = "2024"
 
 [badges]
 travis-ci = { repository = "jhod0/integrators", branch = "master" }
 
 [features]
-default = ["cuba", "gsl"]
+default = ["gsl", "no_gslcblas"]
 cuba = []
 gsl = []
 no_gslcblas=[]
 
 [build-dependencies]
-bindgen = "0.57"
+bindgen = "0.72.1"
 pkg-config = "0.3.18"

@@ -1,6 +1,6 @@
 //use std::intrinsics::unchecked_div;
-use ::Real;
-use ::Integrator;
+use crate::Real;
+use crate::Integrator;
 use super::{GSLIntegrationError, QNG, QAG, QAGS, QAGP, QAWC};
 
 fn nan(_: Real) -> Real {

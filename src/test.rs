@@ -1,3 +1,4 @@
+#[allow(unused_imports)]
 use super::{Integrator, Real};
 #[cfg(feature = "cuba")]
 use super::cuba::{Cuhre, CubaError, Vegas};

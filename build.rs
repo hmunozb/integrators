@@ -40,11 +40,11 @@ fn main() {
 
     if any_bindings {
         let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
-        bindings.blacklist_item("FP_NORMAL")
-                .blacklist_item("FP_SUBNORMAL")
-                .blacklist_item("FP_ZERO")
-                .blacklist_item("FP_INFINITE")
-                .blacklist_item("FP_NAN")
+        bindings.blocklist_item("FP_NORMAL")
+                .blocklist_item("FP_SUBNORMAL")
+                .blocklist_item("FP_ZERO")
+                .blocklist_item("FP_INFINITE")
+                .blocklist_item("FP_NAN")
                 .generate().unwrap()
                 .write_to_file(out_path.join("integrand_bindings.rs"))
                 .expect("Error writing bindings");

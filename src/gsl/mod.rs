@@ -71,7 +71,7 @@ fn gsl_integrand_fn<A, B, F>(x: Real, params: *mut c_void) -> Real
           F: FnMut(A) -> B
 {
     let fnptr = params as *mut LandingPad<A, B, F>;
-    let fun: &mut LandingPad<A, B, F> = &mut *fnptr;
+    let fun: &mut LandingPad<A, B, F> = unsafe{ &mut *fnptr };
 
     if A::input_size() != 1 {
         panic!("integrand given to GSL integrator demands >1 input");
@@ -217,9 +217,9 @@ impl fmt::Display for GSLIntegrationError {
 }
 
 impl error::Error for GSLIntegrationError {
-    fn source(&self) -> Option<&(error::Error + 'static)> {
+    fn source(&self) -> Option<&(dyn error::Error + 'static)> {
         match &self {
-            &GSLIntegrationError::GSLError(ref err) => Some(err),
+            &GSLIntegrationError::GSLError(err) => Some(err),
             _ => None,
         }
     }
